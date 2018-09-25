@@ -1,0 +1,234 @@
+#intro {
+  font-size: 125%;
+  color: green;
+}
+
+.noteA,
+.note1,
+.notea {
+  background: #00FFFF
+}
+
+.noteB,
+.note2,
+.noteb {
+  background: rgb(19, 218, 191)
+}
+
+.noteC,
+.note3,
+.notec {
+  background: rgb(34, 223, 59)
+}
+
+.noteD,
+.note4,
+.noted {
+  background: #E6E6FA
+}
+
+.noteE,
+.note5,
+.notee {
+  background: #FFE4E1
+}
+
+.noteF,
+.note6,
+.notef {
+  background: #BEBEBE
+}
+
+.noteG,
+.note7,
+.noteg {
+  background: #6495ED
+}
+
+.noteH,
+.note8,
+.noteh {
+  background: #7B68EE
+}
+
+.noteI,
+.note9,
+.notei {
+  background: #4169E1
+}
+
+.noteJ,
+.note10,
+.noteg {
+  background: #8FBC8F
+}
+
+.noteK,
+.note11,
+.notek {
+  background: #00FF7F
+}
+
+.noteL,
+.note12,
+.notel {
+  background: #9ACD32
+}
+
+.noteM,
+.note13,
+.notem {
+  background: #FFD700
+}
+
+.noteN,
+.note14,
+.noten {
+  background: #BC8F8F
+}
+
+.noteO,
+.note15,
+.noteo {
+  background: #BBFFFF
+}
+
+.noteP,
+.note16,
+.notep {
+  background: #00EEEE
+}
+
+.noteQ,
+.note17,
+.noteq {
+  background: #76EEC6
+}
+
+.noteR,
+.note18,
+.noter {
+  background: #B4EEB4
+}
+
+.noteS,
+.note19,
+.notes {
+  background: #00FF00
+}
+
+.noteT,
+.note20,
+.notet {
+  background: #B3EE3A
+}
+
+.noteU,
+.note21,
+.noteu {
+  background: #A2CD5A
+}
+
+.noteV,
+.note22,
+.notev {
+  background: #CDCDB4
+}
+
+.noteW,
+.note23,
+.notew {
+  background: #CDBE70
+}
+
+.noteX,
+.note24,
+.notex {
+  background: #FFD700
+}
+
+.noteY,
+.note25,
+.notey {
+  background: #FFC1C1
+}
+
+.noteZ,
+.note26,
+.notez {
+  background: #FFD39B
+}
+
+p.small {
+  font-size: 75%;
+}
+
+span.smaller {
+  font-size: 75%;
+}
+
+pre {
+  padding: 3px;
+}
+
+#content {
+  margin-left: 330px;
+}
+
+#buttons {
+  left: 10px;
+  position: fixed;
+  border: solid black 1px;
+  background-color: lightgoldenrodyellow;
+  padding: 5px;
+  width: 300px;
+}
+
+html.ie6 #buttons {
+  position: absolute;
+}
+
+#buttons h3 {
+  font-size: 125%;
+  font-weight: bold;
+  margin: 0;
+  padding: 0.25em 0;
+}
+
+#buttons h4 {
+  font-size: 100%;
+  font-weight: normal;
+  font-style: italic;
+  margin: 0;
+  padding: 0.25em 0;
+}
+
+#code {
+  width: 95%;
+}
+
+#selectioncontent {
+  border: solid black 1px;
+  padding: 0.125em;
+  background-color: white;
+  overflow: auto;
+}
+
+*.unselectable {
+  -moz-user-select: -moz-none;
+  -khtml-user-select: none;
+  -webkit-user-select: none;
+
+  /*
+      Introduced in IE 10.
+      See http://ie.microsoft.com/testdrive/HTML5/msUserSelect/
+    */
+  -ms-user-select: none;
+  user-select: none;
+}
+
+*.warning {
+  border: solid darkred 2px;
+  padding: 3px;
+  background-color: #f77;
+}
