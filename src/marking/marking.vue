@@ -8,7 +8,7 @@
       <div class=" word-category-list">
         <div v-for="item in data_wordClassList" :key="item.id" @click="noteSelectedText(item)">
           <label for="">{{item.shortcut_key}}</label>
-          <span>{{item.name}}顶顶顶顶顶顶顶顶顶顶</span>
+          <span>{{item.name}}</span>
         </div>
       </div>
     </div>
