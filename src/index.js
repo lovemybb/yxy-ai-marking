@@ -28,10 +28,10 @@ if (typeof window !== 'undefined' && window.Vue) {
 
 export {
   install,
-  Marking
+  AiMarking
 };
 
 export default {
   install,
-  Marking
+  AiMarking
 };
