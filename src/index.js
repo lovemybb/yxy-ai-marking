@@ -20,6 +20,10 @@ const install = function (Vue, opts = {}) {
 if (typeof window !== 'undefined' && window.Vue) {
   install(window.Vue);
 }
+export {
+  install,
+  AiMarking
+};
 
 
 export default {
