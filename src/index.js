@@ -1,7 +1,7 @@
-import Marking from './marking/index.js';
+import AiMarking from './marking/index.js';
 
 const components = [ //组件
-  Marking
+  AiMarking
 ]
 
 const filters = [ //过滤器
