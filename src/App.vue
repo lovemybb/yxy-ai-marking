@@ -5,7 +5,7 @@
 </template>
 
 <script>
-import AiMarking from "./components/marking";
+import AiMarking from "./components/marking/";
 export default {
   name: "app",
   components: {

@@ -1,4 +1,4 @@
-import Marking from './components/marking.vue';
+import Marking from './components/marking/index.js';
 
 const components = [ //组件
   Marking
