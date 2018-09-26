@@ -1,8 +1,5 @@
 <template>
   <div class="main">
-    <div class="btn-list">
-      <button @click="removeAllHighlights">取消所有标注</button>
-    </div>
     <div class="content">
       <div class=" title">标注区域</div>
       <div class=" middle" id="makeText">
@@ -11,18 +8,19 @@
       <div class=" word-category-list">
         <div v-for="item in data_wordClassList" :key="item.id" @click="noteSelectedText(item)">
           <label for="">{{item.shortcut_key}}</label>
-          <span>{{item.name}}</span>
+          <span>{{item.name}}顶顶顶顶顶顶顶顶顶顶</span>
         </div>
       </div>
     </div>
     <div class="content-category-list">
-      <div class=" title">分类区域</div>
+      <div class=" title">分类</div>
       <div class=" middle">
         <select v-model="contentCagegory">
           <option v-for="item in contentCategoryList" :key="item.id" :value="item.id">{{item.name}}</option>
         </select>
       </div>
-      <button class="submit-btn" @click="submit">保存</button>
+      <button @click="removeAllHighlights">取消所有标注</button>
+      <button class="submit-btn" @click="submit">保存标注内容</button>
     </div>
   </div>
 </template>
@@ -174,15 +172,16 @@ export default {
     border: 1px solid #eee;
     .title {
       float: left;
-      width: 20%;
+      width: 3%;
       height: 100%;
-      line-height: 300px;
+      /* line-height: 300px; */
+      margin-top: 130px;
     }
     .middle {
       float: left;
       border: 1px solid #333;
       height: 280px;
-      width: 50%;
+      width: 77%;
       text-align: left;
       padding: 10px;
       line-height: 30px;
@@ -192,7 +191,7 @@ export default {
     .word-category-list {
       float: left;
       height: 100%;
-      width: 27%;
+      width: 17%;
       overflow-y: auto;
       div {
         margin: 10px;
@@ -221,7 +220,7 @@ export default {
     margin-top: 20px;
     .title {
       float: left;
-      width: 20%;
+      width: 10%;
     }
     .middle {
       float: left;
@@ -231,7 +230,8 @@ export default {
       }
     }
     .submit-btn {
-      width: 50px;
+      width: 150px;
+      margin-left: 10px;
       display: inline-block;
     }
   }
