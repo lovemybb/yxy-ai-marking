@@ -159,7 +159,7 @@ export default {
   width: 100%;
   .btn-list {
     button {
-      width: 30%;
+      width: 150px;
       float: left;
     }
     margin-bottom: 10px;
