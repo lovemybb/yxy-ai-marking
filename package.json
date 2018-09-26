@@ -1,7 +1,7 @@
 {
   "name": "yxy-ai-marking",
   "description": "A Vue.js project",
-  "version": "0.0.11",
+  "version": "0.0.12",
   "author": "lianpeng.liu <lianpeng.liu@drcuiyutao.com>",
   "license": "MIT",
   "private": false,
