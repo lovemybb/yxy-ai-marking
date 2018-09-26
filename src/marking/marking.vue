@@ -142,9 +142,9 @@ export default {
       this.$emit("submit", {
         markingJson: this.markingJson, //标记json
         text: this.text, //标记前内容
-        makeList: this.data_markedList, //标记结果列表（关键字和词的对应）
+        markeList: this.data_markedList, //标记结果列表（关键字和词的对应）
         contentCagegory: this.contentCagegory, //当前的内容分类id
-        makeText: document.getElementById("makeTextIframe").contentWindow
+        markeText: document.getElementById("makeTextIframe").contentWindow
           .document.body.innerHTML
       });
     }
