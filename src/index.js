@@ -21,15 +21,6 @@ if (typeof window !== 'undefined' && window.Vue) {
   install(window.Vue);
 }
 
-// let exportArr = [...components, ...filters]
-// let exportObj = {}
-
-
-
-export {
-  install,
-  AiMarking
-};
 
 export default {
   install,
