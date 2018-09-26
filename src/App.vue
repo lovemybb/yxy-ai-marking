@@ -1,15 +1,15 @@
 <template>
   <div id="app">
-    <ai-making :wordClassList='wordClassList' :text="text" :markedJson="markedJson" :markedList="markedList" :contentCategoryList="contentCategoryList" @submit="submit"></ai-making>
+    <ai-marking :wordClassList='wordClassList' :text="text" :markedJson="markedJson" :markedList="markedList" :contentCategoryList="contentCategoryList" @submit="submit"></ai-marking>
   </div>
 </template>
 
 <script>
-import AiMaking from "./components/making";
+import AiMarking from "./components/marking";
 export default {
   name: "app",
   components: {
-    AiMaking
+    AiMarking
   },
   data() {
     return {

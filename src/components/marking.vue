@@ -34,7 +34,7 @@ import rangySerializer from "rangy/lib/rangy-serializer";
 import rangyClassApplier from "rangy/lib/rangy-classapplier";
 import rangySaveRestore from "rangy/lib/rangy-selectionsaverestore";
 export default {
-  name: "aiMaking",
+  name: "aiMarking",
   props: {
     contentCategoryList: {
       //内容分类数据[{id,name}]
@@ -71,7 +71,7 @@ export default {
   data() {
     return {
       highlighter: null,
-      makingJson: "",
+      markingJson: "",
       contentCagegory: "",
       data_markedList: null,
       data_wordClassList: null
@@ -138,9 +138,9 @@ export default {
       this.highlighter.removeAllHighlights();
     },
     submit() {
-      this.makingJson = this.highlighter.serialize();
+      this.markingJson = this.highlighter.serialize();
       this.$emit("submit", {
-        makingJson: this.makingJson, //标记json
+        markingJson: this.markingJson, //标记json
         text: this.text, //标记前内容
         makeList: this.data_markedList, //标记结果列表（关键字和词的对应）
         contentCagegory: this.contentCagegory, //当前的内容分类id
