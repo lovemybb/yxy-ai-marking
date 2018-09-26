@@ -1,7 +1,7 @@
 <template>
   <div class="main">
     <div class="btn-list">
-      <button>取消所有标注</button>
+      <button @click="removeAllHighlights">取消所有标注</button>
     </div>
     <div class="content">
       <div class=" title">标注区域</div>
@@ -9,7 +9,7 @@
         <iframe src="" frameborder="0" style="width:100%;height:97%" id="makeTextIframe"></iframe>
       </div>
       <div class=" word-category-list">
-        <div v-for="item in wordClassList" :key="item.id" @click="noteSelectedText(item)" :class="'note'+item.shortcut_key">
+        <div v-for="item in data_wordClassList" :key="item.id" @click="noteSelectedText(item)">
           <label for="">{{item.shortcut_key}}</label>
           <span>{{item.name}}</span>
         </div>
@@ -26,9 +26,6 @@
     </div>
   </div>
 </template>
-
-
-
 <script>
 import rangy from "rangy";
 import rangyTextRange from "rangy/lib/rangy-textrange";
@@ -47,9 +44,16 @@ export default {
       }
     },
     markedJson: {
-      //已标记的内容
+      //已标记内容的位置信息
       type: String,
-      default: "type:textContent|0$14$3$noteA$|42$70$10$noteC$"
+      default: ""
+    },
+    markedList: {
+      //标记过的词信息[{text: string,wordClass: object}]
+      type: Array,
+      default() {
+        return [];
+      }
     },
     wordClassList: {
       //词分类数据[{id,name,shortcut_key}]
@@ -67,10 +71,10 @@ export default {
   data() {
     return {
       highlighter: null,
-      savedSel: null,
-      makeList: [],
       makingJson: "",
-      contentCagegory: ""
+      contentCagegory: "",
+      data_markedList: null,
+      data_wordClassList: null
     };
   },
   created() {
@@ -78,68 +82,67 @@ export default {
   },
   mounted() {
     let _self = this;
+    this.data_markedList = JSON.parse(JSON.stringify(this.markedList));
     this.contentCagegory =
       this.contentCategoryList &&
       this.contentCategoryList.length &&
       this.contentCategoryList[0].id;
     document.getElementById(
       "makeTextIframe"
-    ).contentWindow.document.body.innerHTML = this.text;
-    console.log(rangy, "rangy", document.getElementById("makeText"));
-    setTimeout(() => {
-      this.highlighter = rangy.createHighlighter(
-        document.getElementById("makeTextIframe").contentWindow.document
-      );
-      this.wordClassList.forEach(item => {
-        this.highlighter.addClassApplier(
-          rangy.createClassApplier("note" + item.shortcut_key, {
-            ignoreWhiteSpace: true,
-            elementTagName: "a",
-            elementProperties: {
-              href: "javascript:;",
-              title: "标注为：" + item.name,
-              onclick: function() {
-                let highlight = _self.highlighter.getHighlightForElement(this);
-                if (confirm("确定要删除标注吗?")) {
-                  _self.highlighter.removeHighlights([highlight]);
-                }
-                return false;
+    ).contentWindow.document.body.innerHTML = this.text; //给iframe赋值
+    this.highlighter = rangy.createHighlighter(
+      document.getElementById("makeTextIframe").contentWindow.document
+    ); //获取荧光棒对象
+    this.data_wordClassList = JSON.parse(JSON.stringify(this.wordClassList));
+    this.data_wordClassList = this.data_wordClassList.map(item => {
+      item.shortcut_key = item.shortcut_key || item.id;
+      return item;
+    });
+    this.data_wordClassList.forEach(item => {
+      //初始化标记
+      this.highlighter.addClassApplier(
+        rangy.createClassApplier("note" + item.shortcut_key, {
+          ignoreWhiteSpace: true,
+          elementTagName: "a",
+          elementProperties: {
+            href: "javascript:;",
+            title: "标注为：" + item.name,
+            onclick: function() {
+              let highlight = _self.highlighter.getHighlightForElement(this);
+              if (confirm("确定要删除标注吗?")) {
+                _self.highlighter.removeHighlights([highlight]);
               }
+              return false;
             }
-          })
-        );
-      });
-      if (this.markedJson) this.highlighter.deserialize(this.markedJson); //回显已标记
-      document.addEventListener("mousedown", () => {
-        if (this.savedSel) {
-          rangy.removeMarkers(this.savedSel);
-        }
-        if (rangy.getSelection().toString())
-          this.savedSel = rangy.saveSelection();
-      });
-      document.addEventListener("keydown", e => {
-        console.log(e);
-      });
-    }, 0);
+          }
+        })
+      );
+    });
+    if (this.markedJson) this.highlighter.deserialize(this.markedJson); //回显已标记
   },
   methods: {
     noteSelectedText(obj) {
-      if (this.savedSel) rangy.restoreSelection(this.savedSel, true);
+      //点击标注
       let makingString = rangy
         .getSelection(document.getElementById("makeTextIframe"))
         .toString();
-      this.makeList.push({
-        text: makingString,
-        wordClass: obj
-      });
+      if (makingString)
+        this.data_markedList.push({
+          text: makingString,
+          wordClass: obj
+        });
       this.highlighter.highlightSelection("note" + obj.shortcut_key);
+    },
+    removeAllHighlights() {
+      this.data_markedList = [];
+      this.highlighter.removeAllHighlights();
     },
     submit() {
       this.makingJson = this.highlighter.serialize();
-      console.log({
+      this.$emit("submit", {
         makingJson: this.makingJson, //标记json
         text: this.text, //标记前内容
-        makeList: this.makeList, //标记结果列表（关键字和词的对应）
+        makeList: this.data_markedList, //标记结果列表（关键字和词的对应）
         contentCagegory: this.contentCagegory, //当前的内容分类id
         makeText: document.getElementById("makeTextIframe").contentWindow
           .document.body.innerHTML

@@ -1,7 +1,6 @@
 <template>
-  <div id="app">sfsdfsdfsdfsdf sdfsdfsdfsdsdfsdf sdfsdfsdfsdsdfsdf sd fffffff fffsss sdfsdfsdfsdsdfsds sdfsdfsdfsdsdfsdsds sdfsdfsdfsdsdf
-
-    <ai-making :wordClassList='wordClassList' :text="text" :contentCategoryList="contentCategoryList"></ai-making>
+  <div id="app">
+    <ai-making :wordClassList='wordClassList' :text="text" :markedJson="markedJson" :markedList="markedList" :contentCategoryList="contentCategoryList" @submit="submit"></ai-making>
   </div>
 </template>
 
@@ -14,44 +13,38 @@ export default {
   },
   data() {
     return {
-      msg: "Welcome to Your Vue.js App",
       wordClassList: [
-        { shortcut_key: "A", name: "fffA", id: 1 },
-        { shortcut_key: "B", name: "fffB", id: 2 },
-        { shortcut_key: "C", name: "fffC", id: 3 },
-        { shortcut_key: "D", name: "fffD", id: 4 },
-        { shortcut_key: "E", name: "fffE", id: 5 },
-        { shortcut_key: "F", name: "fffF", id: 6 },
-        { shortcut_key: "G", name: "fffG", id: 7 },
-        { shortcut_key: "H", name: "fffH", id: 8 },
-        { shortcut_key: "I", name: "fffI", id: 9 },
-        { shortcut_key: "J", name: "fffJ", id: 10 },
-        { shortcut_key: "K", name: "fffK", id: 11 },
-        { shortcut_key: "L", name: "fffL", id: 12 },
-        { shortcut_key: "M", name: "fffM", id: 13 },
-        { shortcut_key: "N", name: "fffN", id: 14 },
-        { shortcut_key: "O", name: "fffO", id: 15 },
-        { shortcut_key: "P", name: "fffP", id: 16 },
-        { shortcut_key: "Q", name: "fffQ", id: 17 },
-        { shortcut_key: "R", name: "fffR", id: 18 },
-        { shortcut_key: "S", name: "fffS", id: 19 },
-        { shortcut_key: "T", name: "fffT", id: 20 },
-        { shortcut_key: "U", name: "fffU", id: 21 },
-        { shortcut_key: "V", name: "fffV", id: 22 },
-        { shortcut_key: "W", name: "fffW", id: 23 },
-        { shortcut_key: "X", name: "fffX", id: 24 },
-        { shortcut_key: "Y", name: "fffY", id: 25 },
-        { shortcut_key: "Z", name: "fffZ", id: 26 }
+        //词类
+        { name: "fffA", id: 1 },
+        { name: "fffB", id: 2 },
+        { name: "fffC", id: 3 },
+        { name: "fffD", id: 4 },
+        { name: "fffE", id: 5 }
       ],
       text:
-        "sdfsdfsdfsdsdfsdfsdfsdf sdsdfsdfsdfsdfsds dfsdfsdfsdfsdsdfsdfs dfsdfsdsdfsdfs dfsdfsdsdf sdfsdfsdfsd sdfsdf sdfsdfsdsdfsdfsdf sdfsdsdfsdfsdfsdfsds dfsdfsdfsdfsdsdf<br>sdfsdfsdfsdsdf<br>sdfsdfsdfsdsdf<br>sdfsdfsdfsdsdf<br>sdfsdfsdfsdsdf<br>sdfsdfsdfsdsdf<br>sdfsdfsdfsdsdf<br>sdfsdfsdfsdsdf<br>sdfsdfsdfsdsdf<br>sdfsdfsdfsdsdf<br>sdfsdfsdfsdsdf<br>sdfsdfsdfsdsdf<br>sdfsdfsdfsdsdf<br>sdfsdfsdfsdsdf<br>sdfsdfsdfsdsdf<br>sdfsdfsdfsdsdf<br>sdfsdfsdfsdsdf<br>sdfsdfsdfsdsdf<br>sdfsdfsdfsdsdf<br>sdfsdfsdfsdsdf<br>sdfsdfsdfsdsdf<br>sdfsdfsdfsdsdf<br>sdfsdfsdfsdsdf<br>sdfsdfsdfsdsdf<br>sdfsdfsdfsdsdf<br>sdfsdfsdfsdsdf<br>sdfsdfsdfsdsdf<br>sdfsdfsdfsdsdf<br>sdfsdfsdfsdsdf<br>sdfsdfsdfsdsdf<br>sdfsdfsdfsdsdf<br>sdfsdfsdfsdsdf<br>sdfsdfsdfsdsdf<br>sdfsdfsdfsdsdf<br>sdfsdfsdfsdsdf<br>sdfsdfsdfsdsdf<br>sdfsdfsdfsdsdf<br>sdfsdfsdfsdsdf<br>sdfsdfsdfsdsdf<br>sdfsdfsdfsdsdf<br>sdfsdfsdfsdsdf<br>sdfsdfsdfsdsdf<br>sdfsdfsdfsdsdf<br>sdfsdfsdfsdsdf<br>sdfsdfsdfsdsdf<br>sdfsdfsdfsdsdf<br>sdfsdfsdfsdsdf<br>sdfsdfsdfsdsdf<br>sdfsdfsdfsdsdf<br>sdfsdfsdfsdsdf<br>sdfsdfsdfsdsdf<br>sdfsdfsdfsdsdf<br>sdfsdfsdfsdsdf<br>sdfsdfsdfsdsdf<br>sdfsdfsdfsdsdf<br>sdfsdfsdfsdsdf<br>sdfsdfsdfsdsdf<br>sdfsdfsdfsdsdf<br>",
+        "sdfsdfsdfsdsdfsdfsdfsdf sdsdfsdfsdfsdfsds dfsdfsdfsdfsdsdfsdfs dfsdfsdsdfsdfs ", //
       contentCategoryList: [
         {
           id: 1,
           name: "内容1"
         }
+      ],
+      markedJson: "type:textContent|17$31$1$note4$",
+      markedList: [
+        {
+          text: "dfsdfsdsdfsdfs",
+          wordClass: {
+            id: 3,
+            name: "fffC"
+          }
+        }
       ]
     };
+  },
+  methods: {
+    submit(data) {
+      console.log(data, "submit data");
+    }
   }
 };
 </script>
