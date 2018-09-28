@@ -26,10 +26,10 @@
 </template>
 <script>
 import rangy from "rangy";
+import rangyClassApplier from "rangy/lib/rangy-classapplier";
 import rangyTextRange from "rangy/lib/rangy-textrange";
 import rangyHighlighter from "rangy/lib/rangy-highlighter";
 import rangySerializer from "rangy/lib/rangy-serializer";
-import rangyClassApplier from "rangy/lib/rangy-classapplier";
 import rangySaveRestore from "rangy/lib/rangy-selectionsaverestore";
 export default {
   name: "aiMarking",
