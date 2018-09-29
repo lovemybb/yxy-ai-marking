@@ -19,8 +19,8 @@
           <option v-for="item in contentCategoryList" :key="item.id" :value="item.id">{{item.name}}</option>
         </select>
       </div>
-      <button @click="removeAllHighlights">取消所有标注</button>
-      <button class="submit-btn" @click="submit">保存标注内容</button>
+      <button @click="removeAllHighlights" v-if="!readOnly">取消所有标注</button>
+      <button class="submit-btn" @click="submit" v-if="!readOnly">保存标注内容</button>
     </div>
   </div>
 </template>
@@ -34,12 +34,21 @@ import rangySaveRestore from "rangy/lib/rangy-selectionsaverestore";
 export default {
   name: "aiMarking",
   props: {
+    readOnly: {
+      type: Boolean,
+      default: false
+    },
     contentCategoryList: {
       //内容分类数据[{id,name}]
       type: Array,
       default() {
         return [];
       }
+    },
+    selectedContentCagegory: {
+      //默认选中的内容分类
+      type: String,
+      default: ""
     },
     markedJson: {
       //已标记内容的位置信息
@@ -82,9 +91,10 @@ export default {
     let _self = this;
     this.data_markedList = JSON.parse(JSON.stringify(this.markedList));
     this.contentCagegory =
-      this.contentCategoryList &&
-      this.contentCategoryList.length &&
-      this.contentCategoryList[0].id;
+      this.selectedContentCagegory ||
+      (this.contentCategoryList &&
+        this.contentCategoryList.length &&
+        this.contentCategoryList[0].id);
     document.getElementById(
       "makeTextIframe"
     ).contentWindow.document.body.innerHTML = this.text; //给iframe赋值
@@ -120,6 +130,7 @@ export default {
   },
   methods: {
     noteSelectedText(obj) {
+      if (this.readOnly) return;
       //点击标注
       let makingString = rangy
         .getSelection(document.getElementById("makeTextIframe"))
@@ -155,18 +166,7 @@ export default {
 @import "../assets/css/rangy.css";
 .main {
   width: 100%;
-  .btn-list {
-    button {
-      width: 150px;
-      float: left;
-    }
-    margin-bottom: 10px;
-  }
-  .btn-list:after {
-    content: "";
-    display: block;
-    clear: both;
-  }
+
   .content {
     height: 300px;
     border: 1px solid #eee;
@@ -174,8 +174,7 @@ export default {
       float: left;
       width: 3%;
       height: 100%;
-      /* line-height: 300px; */
-      margin-top: 130px;
+      margin: 130px 3px 0 3px;
     }
     .middle {
       float: left;
@@ -229,7 +228,7 @@ export default {
         padding: 2px;
       }
     }
-    .submit-btn {
+    button {
       width: 150px;
       margin-left: 10px;
       display: inline-block;
