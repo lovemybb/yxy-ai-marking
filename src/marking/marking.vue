@@ -63,7 +63,7 @@ export default {
       }
     },
     wordClassList: {
-      //词分类数据[{id,name,shortcut_key}]
+      //词分类数据[{id:'1',list:[{id,name,shortcut_key}]}]
       type: Array,
       default() {
         return [];
@@ -87,6 +87,15 @@ export default {
   created() {
     rangy.init();
   },
+  watch: {
+    contentCagegory: function(newVal, oldVal) {
+      if (!oldVal) return;
+      //清除所有标记
+      this.removeAllHighlights();
+      //重新初始化标记池
+      this.initClassApplier();
+    }
+  },
   mounted() {
     let _self = this;
     this.data_markedList = JSON.parse(JSON.stringify(this.markedList));
@@ -95,37 +104,15 @@ export default {
       (this.contentCategoryList &&
         this.contentCategoryList.length &&
         this.contentCategoryList[0].id);
+
+    // this.data_wordClassList =
     document.getElementById(
       "makeTextIframe"
     ).contentWindow.document.body.innerHTML = this.text; //给iframe赋值
     this.highlighter = rangy.createHighlighter(
       document.getElementById("makeTextIframe").contentWindow.document
     ); //获取荧光棒对象
-    this.data_wordClassList = JSON.parse(JSON.stringify(this.wordClassList));
-    this.data_wordClassList = this.data_wordClassList.map(item => {
-      item.shortcut_key = item.shortcut_key || item.id;
-      return item;
-    });
-    this.data_wordClassList.forEach(item => {
-      //初始化标记
-      this.highlighter.addClassApplier(
-        rangy.createClassApplier("note" + item.shortcut_key, {
-          ignoreWhiteSpace: true,
-          elementTagName: "a",
-          elementProperties: {
-            href: "javascript:;",
-            title: "标注为：" + item.name,
-            onclick: function() {
-              let highlight = _self.highlighter.getHighlightForElement(this);
-              if (confirm("确定要删除标注吗?")) {
-                _self.highlighter.removeHighlights([highlight]);
-              }
-              return false;
-            }
-          }
-        })
-      );
-    });
+    this.initClassApplier();
     if (this.markedJson) this.highlighter.deserialize(this.markedJson); //回显已标记
   },
   methods: {
@@ -155,6 +142,36 @@ export default {
         contentCagegory: this.contentCagegory, //当前的内容分类id
         markeText: document.getElementById("makeTextIframe").contentWindow
           .document.body.innerHTML
+      });
+    },
+    initClassApplier() {
+      let _self = this;
+      this.data_wordClassList = JSON.parse(
+        JSON.stringify(this.wordClassList)
+      ).find(item => item.id == this.contentCagegory)["list"];
+      this.data_wordClassList = this.data_wordClassList.map(item => {
+        item.shortcut_key = item.shortcut_key || item.id;
+        return item;
+      });
+      this.data_wordClassList.forEach(item => {
+        //初始化标记
+        this.highlighter.addClassApplier(
+          rangy.createClassApplier("note" + item.shortcut_key, {
+            ignoreWhiteSpace: true,
+            elementTagName: "a",
+            elementProperties: {
+              href: "javascript:;",
+              title: "标注为：" + item.name,
+              onclick: function() {
+                let highlight = _self.highlighter.getHighlightForElement(this);
+                if (confirm("确定要删除标注吗?")) {
+                  _self.highlighter.removeHighlights([highlight]);
+                }
+                return false;
+              }
+            }
+          })
+        );
       });
     }
   }

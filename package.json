@@ -23,6 +23,7 @@
     "dist",
     "src"
   ],
+  "homepage": "https://github.com/lovemybb/yxy-ai-marking",
   "devDependencies": {
     "babel-core": "^6.26.0",
     "babel-loader": "^7.1.2",
