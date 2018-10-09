@@ -118,7 +118,13 @@ export default {
             onclick: function() {
               let highlight = _self.highlighter.getHighlightForElement(this);
               if (confirm("确定要删除标注吗?")) {
+                console.log(highlight, "highlight");
                 _self.highlighter.removeHighlights([highlight]);
+                let index = _self.data_markedList.findIndex(item => {
+                  console.log(item, highlight.id);
+                  return item.markingId == highlight.id;
+                });
+                if (index >= 0) _self.data_markedList.splice(index, 1); //删除标记list
               }
               return false;
             }
@@ -135,12 +141,16 @@ export default {
       let makingString = rangy
         .getSelection(document.getElementById("makeTextIframe"))
         .toString();
+
+      let highlight = this.highlighter.highlightSelection(
+        "note" + obj.shortcut_key
+      );
       if (makingString)
         this.data_markedList.push({
           text: makingString,
-          wordClass: obj
+          wordClass: obj,
+          markingId: highlight[0].id
         });
-      this.highlighter.highlightSelection("note" + obj.shortcut_key);
     },
     removeAllHighlights() {
       this.data_markedList = [];

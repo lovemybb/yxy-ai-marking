@@ -43,6 +43,7 @@ export default {
       markedList: [
         {
           text: "聊天",
+          markingId: 1,
           wordClass: {
             id: 1,
             name: "fffA"
